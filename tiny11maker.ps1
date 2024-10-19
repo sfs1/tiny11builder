@@ -44,7 +44,9 @@ Write-Host "Welcome to the tiny11 image creator! Release: 05-06-24"
 $hostArchitecture = $Env:PROCESSOR_ARCHITECTURE
 New-Item -ItemType Directory -Force -Path "$ScratchDisk\tiny11\sources" >null
 $DriveLetter = Read-Host "Please enter the drive letter to the Windows 11 Installation ISO"
-$DriveLetter = $DriveLetter + ":"
+if (!$DriveLetter.EndsWith(":")) {
+    $DriveLetter = $DriveLetter + ":"
+}
 
 if ((Test-Path "$DriveLetter\sources\boot.wim") -eq $false -or (Test-Path "$DriveLetter\sources\install.wim") -eq $false) {
     if ((Test-Path "$DriveLetter\sources\install.esd") -eq $true) {
